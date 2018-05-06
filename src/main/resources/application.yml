@@ -1,0 +1,9 @@
+spring:
+  freemarker:
+    cache: false
+    check-template-location: true
+    content-type: text/html
+    expose-request-attributes: true
+    expose-session-attributes: true
+    request-context-attribute: request
+    suffix: .ftl

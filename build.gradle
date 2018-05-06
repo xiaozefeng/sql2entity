@@ -1,0 +1,21 @@
+group 'org.dark'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'java'
+apply from : "$rootDir/dependencies.gradle"
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenLocal()
+    maven {
+        url = 'http://maven.aliyun.com/nexus/content/groups/public'
+    }
+    mavenCentral()
+}
+
+
+dependencies {
+    compile libs.common
+    testCompile libs.test
+}

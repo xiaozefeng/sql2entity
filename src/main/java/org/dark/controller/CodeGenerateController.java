@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.List;
 
 /**
  * @author xiaozefeng
@@ -41,9 +42,9 @@ public class CodeGenerateController {
     @ResponseBody
     public void codeGenerate(HttpServletResponse response, SqlRequestDTO sqlRequestDTO) {
         log.info("请求参数:{}", sqlRequestDTO);
-        SqlParseResult parseResult = sqlParser.parse(sqlRequestDTO.getSql(), sqlRequestDTO.getIgnoreTablePrefix());
+        List<SqlParseResult> parseResultList = sqlParser.parse(sqlRequestDTO.getSql(), sqlRequestDTO.getIgnoreTablePrefix());
         try {
-            codeGenerator.generateCode(sqlRequestDTO.getBasePackage(), parseResult, response);
+            codeGenerator.generateCode(sqlRequestDTO.getBasePackage(), parseResultList, response);
         } catch (IOException | TemplateException e) {
             log.error(e.getMessage(), e);
         }

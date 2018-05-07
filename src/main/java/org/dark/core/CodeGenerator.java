@@ -11,6 +11,7 @@ import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -27,12 +28,13 @@ public class CodeGenerator {
     private Configuration cfg;
 
     public OutputStream generateCode(String packageName,
-                                     SqlParseResult sqlParseResult,
+                                     List<SqlParseResult> sqlParseResultList,
                                      HttpServletResponse response) throws IOException, TemplateException {
         // 从 resources/templates 下找bean.ftl
         Template temp = cfg.getTemplate("bean.ftl");
 
         // Create the root hash
+        SqlParseResult sqlParseResult = sqlParseResultList.get(0);
         Map<String, Object> root = new HashMap<>();
         root.put("packageName", packageName);
         root.put("className", sqlParseResult.getTableName());

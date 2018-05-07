@@ -4,7 +4,7 @@
 
 ## 本项目基于Spring Boot 和 gradle 构建
 ## 在本地启动成功
-> 访问 [http://localhost:8080/code/index](http://localhost:8080/code/index)
+> 访问 [http://localhost:8080/index](http://localhost:8080/index)
 
 ## 待优化
 - 目前只支持单个建表语句，生成的文件也是单个的java文件

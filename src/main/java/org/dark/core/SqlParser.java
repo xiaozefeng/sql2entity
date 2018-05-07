@@ -7,6 +7,7 @@ import org.dark.domain.SqlParseResult;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -26,7 +27,16 @@ public class SqlParser {
      * @param ignoreTablePrefix
      * @return
      */
-    public SqlParseResult parse(String sql, String ignoreTablePrefix) {
+    public List<SqlParseResult> parse(String sql, String ignoreTablePrefix) {
+        List<SqlParseResult> results = new ArrayList<>();
+        String[] split = sql.split(";\n");
+        Arrays.stream(split).forEach(s -> {
+            results.add(getSqlParseResult(sql, ignoreTablePrefix));
+        });
+        return results;
+    }
+
+    private SqlParseResult getSqlParseResult(String sql, String ignoreTablePrefix) {
         sql = sql.trim().toLowerCase().replaceAll("`", "");
         String[] split = sql.split("\n");
         String tableName = getTableName(split[0], ignoreTablePrefix);

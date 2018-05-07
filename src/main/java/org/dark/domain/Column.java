@@ -1,5 +1,6 @@
 package org.dark.domain;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 /**
@@ -9,12 +10,17 @@ import lombok.Data;
  * @date 2018/5/5 下午10:15
  */
 @Data
+@AllArgsConstructor
 public class Column {
 
     /**
-     * 字段名称
+     * 转换后的实体属性名
      */
     private String name;
+    /**
+     * 数据字段名
+     */
+    private String columnName;
     /**
      * 字段类型
      */
@@ -28,9 +34,5 @@ public class Column {
     public Column() {
     }
 
-    public Column(String name, String type, String comment) {
-        this.name = name;
-        this.type = type;
-        this.comment = comment;
-    }
+
 }

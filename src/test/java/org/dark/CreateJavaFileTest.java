@@ -27,10 +27,10 @@ public class CreateJavaFileTest {
     @BeforeClass
     public static void init() {
 
-        columnList.add(new Column("name", "String", ""));
-        columnList.add(new Column("age", "Integer", "年龄"));
-        columnList.add(new Column("birth", "Date", "生日"));
-        columnList.add(new Column("salary", "BigDecimal", "工资"));
+        columnList.add(new Column("name", "NAME", "String", "姓名"));
+        columnList.add(new Column("age", "AGE","Integer", "年龄"));
+        columnList.add(new Column("birth", "BIRTH","Date", "生日"));
+        columnList.add(new Column("salary", "SALARY","BigDecimal", "工资"));
     }
 
 

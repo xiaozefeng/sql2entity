@@ -3,7 +3,7 @@ package org.dark.core;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
-import org.dark.domain.SqlParseResult;
+import org.dark.dto.SqlParseResultDTO;
 import org.dark.utils.ZipUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -34,7 +34,7 @@ public class CodeGenerator {
     private final static String TEMP_DIR = "src/main/resources/temp";
 
     public OutputStream generateCode(String packageName,
-                                     List<SqlParseResult> sqlParseResultList,
+                                     List<SqlParseResultDTO> sqlParseResultDTOList,
                                      HttpServletResponse response) throws IOException, TemplateException {
         // 从 resources/templates 下找bean.ftl
         Template temp = cfg.getTemplate("bean.ftl");
@@ -43,12 +43,12 @@ public class CodeGenerator {
         response.setContentType("application/octet-stream; charset=utf-8");
         ServletOutputStream outputStream = response.getOutputStream();
         ZipOutputStream zipOutputStream = new ZipOutputStream(outputStream);
-        for (SqlParseResult sqlParseResult :sqlParseResultList) {
+        for (SqlParseResultDTO sqlParseResultDTO : sqlParseResultDTOList) {
             Map<String, Object> root = new HashMap<>();
             root.put("packageName", packageName);
-            root.put("className", sqlParseResult.getTableName());
-            root.put("columns", sqlParseResult.getColumnList());
-            String fileName = sqlParseResult.getTableName().concat(".java");
+            root.put("className", sqlParseResultDTO.getTableName());
+            root.put("columns", sqlParseResultDTO.getColumnList());
+            String fileName = sqlParseResultDTO.getTableName().concat(".java");
             OutputStream fos = new FileOutputStream(new File(TEMP_DIR, fileName));
             Writer out = new OutputStreamWriter(fos);
             temp.process(root, out);

@@ -2,8 +2,9 @@ package org.dark.core;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.dark.constants.SqlConstant;
 import org.dark.domain.Column;
-import org.dark.domain.SqlParseResult;
+import org.dark.dto.SqlParseResultDTO;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -20,6 +21,8 @@ import java.util.List;
 @Slf4j
 public class SqlParser {
 
+    private final String SQL_SEPARATOR = "charset=utf8;";
+
     /**
      * 解析sql
      *
@@ -27,38 +30,46 @@ public class SqlParser {
      * @param ignoreTablePrefix
      * @return
      */
-    public List<SqlParseResult> parse(String sql, String ignoreTablePrefix) {
-        List<SqlParseResult> results = new ArrayList<>();
+    public List<SqlParseResultDTO> parse(String sql, String ignoreTablePrefix) {
+        List<SqlParseResultDTO> results = new ArrayList<>();
         sql = sql.toLowerCase();
-        String[] split = sql.split("charset=utf8;");
-        log.info("split.length:{}",split.length);
+        String[] split = sql.split(SQL_SEPARATOR);
         Arrays.stream(split).forEach(s -> {
             results.add(getSqlParseResult(s, ignoreTablePrefix));
         });
         return results;
     }
 
-    private SqlParseResult getSqlParseResult(String sql, String ignoreTablePrefix) {
+    /**
+     * 解析sql
+     *
+     * @param sql
+     * @param ignoreTablePrefix
+     * @return
+     */
+    private SqlParseResultDTO getSqlParseResult(String sql, String ignoreTablePrefix) {
         sql = sql.trim().toLowerCase().replaceAll("`", "");
         String[] split = sql.split("\n");
         String tableName = getTableName(split[0], ignoreTablePrefix);
-        log.info("tableName:{}", tableName);
+        log.info("处理后的表名:{}", tableName);
         List<Column> columns = new ArrayList<>();
         for (int i = 1; i < split.length; i++) {
-            if (i == split.length -1) {
+            if (i == split.length - 1) {
                 continue;
             }
             String trim = split[i].trim();
-            if (trim.startsWith("key") || trim.startsWith("primary")) {
+            if (trim.startsWith(SqlConstant.KEY) || trim.startsWith(SqlConstant.PRIMARY)) {
                 continue;
             }
             Column column = new Column();
-            column.setName(getColumnName(trim.split("\\s+")[0]));
+            String columnName = trim.split("\\s+")[0];
+            column.setColumnName(columnName);
+            column.setName(getFieldName(columnName));
             column.setType(convertToType(trim.split(" ")[1]));
             column.setComment(findComment(trim));
             columns.add(column);
         }
-        return new SqlParseResult(tableName, columns);
+        return new SqlParseResultDTO(tableName, columns);
     }
 
     /**
@@ -67,7 +78,7 @@ public class SqlParser {
      * @param column
      * @return
      */
-    private String getColumnName(String column) {
+    private String getFieldName(String column) {
         assert column != null && !"".equals(column);
         if (!column.contains("_")) {
             return column;
@@ -78,7 +89,7 @@ public class SqlParser {
             if (i == 0) {
                 sb.append(split[i]);
             } else {
-                sb.append(capitalize(split[i]));
+                sb.append(StringUtils.capitalize(split[i]));
             }
         }
         return sb.toString();
@@ -140,27 +151,17 @@ public class SqlParser {
         String result = s.substring(index + table.length());
         String tableName = result.replaceAll("\\(", "").trim();
         if (StringUtils.isNotBlank(ignoreTablePrefix.toLowerCase())) {
-            tableName = tableName.substring(ignoreTablePrefix.concat("_").length());
+            tableName = tableName.substring(ignoreTablePrefix.concat(SqlConstant.UNDERLINE).length());
         }
         StringBuilder sb = new StringBuilder();
-        if (tableName.contains("_")) {
-            String[] split = tableName.split("_");
+        if (tableName.contains(SqlConstant.UNDERLINE)) {
+            String[] split = tableName.split(SqlConstant.UNDERLINE);
             for (String st : split) {
-                sb.append(capitalize(st));
+                sb.append(StringUtils.capitalize(st));
             }
         } else {
-            sb.append(capitalize(tableName));
+            sb.append(StringUtils.capitalize(tableName));
         }
         return sb.toString();
-    }
-
-    /**
-     * 首字符大写
-     *
-     * @param origin
-     * @return
-     */
-    private String capitalize(String origin) {
-        return origin.substring(0, 1).toUpperCase().concat(origin.substring(1));
     }
 }

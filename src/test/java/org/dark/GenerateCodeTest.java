@@ -1,4 +1,4 @@
-package com.dark;
+package org.dark;
 
 import freemarker.template.TemplateException;
 import org.dark.core.CodeGenerator;

@@ -1,4 +1,4 @@
-package com.dark;
+package org.dark;
 
 import org.dark.domain.Column;
 import org.junit.Test;

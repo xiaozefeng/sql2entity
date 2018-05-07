@@ -1,5 +1,6 @@
 package org.dark.core;
 
+import com.google.common.collect.ImmutableMap;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.dark.constants.SqlConstant;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 /**
  * SQL 建表语句解析器
@@ -32,11 +34,9 @@ public class SqlParser {
      */
     public List<SqlParseResultDTO> parse(String sql, String ignoreTablePrefix) {
         List<SqlParseResultDTO> results = new ArrayList<>();
-        sql = sql.toLowerCase();
+        sql = sql.toLowerCase().replaceAll("((\r\n)|\n)[\\s\t ]*(\\1)+", "$1");
         String[] split = sql.split(SQL_SEPARATOR);
-        Arrays.stream(split).forEach(s -> {
-            results.add(getSqlParseResult(s, ignoreTablePrefix));
-        });
+        Arrays.stream(split).filter(StringUtils::isNotBlank).forEach(s-> results.add(getSqlParseResult(s, ignoreTablePrefix)));
         return results;
     }
 
@@ -48,10 +48,11 @@ public class SqlParser {
      * @return
      */
     private SqlParseResultDTO getSqlParseResult(String sql, String ignoreTablePrefix) {
-        sql = sql.trim().toLowerCase().replaceAll("`", "");
+        sql = sql.trim().toLowerCase().replaceAll("`", "").replaceAll("((\r\n)|\n)[\\s\t ]*(\\1)+", "$1");
         String[] split = sql.split("\n");
-        String tableName = getTableName(split[0], ignoreTablePrefix);
-        log.info("处理后的表名:{}", tableName);
+        Map<String, String> map = getTableName(split[0], ignoreTablePrefix);
+        String clazzName = map.get("clazzName");
+        log.info("处理后的表名:{}", clazzName);
         List<Column> columns = new ArrayList<>();
         for (int i = 1; i < split.length; i++) {
             if (i == split.length - 1) {
@@ -63,13 +64,14 @@ public class SqlParser {
             }
             Column column = new Column();
             String columnName = trim.split("\\s+")[0];
-            column.setColumnName(columnName);
+            column.setColumnName(columnName.toUpperCase());
             column.setName(getFieldName(columnName));
             column.setType(convertToType(trim.split(" ")[1]));
             column.setComment(findComment(trim));
             columns.add(column);
         }
-        return new SqlParseResultDTO(tableName, columns);
+
+        return new SqlParseResultDTO(clazzName, map.get("tableName").toUpperCase(), columns);
     }
 
     /**
@@ -143,12 +145,9 @@ public class SqlParser {
      * @param ignoreTablePrefix
      * @return
      */
-    private String getTableName(String s, String ignoreTablePrefix) {
-        String table = "table";
-        // create table tb_infor_job (
-
-        int index = s.indexOf(table);
-        String result = s.substring(index + table.length());
+    private Map getTableName(String s, String ignoreTablePrefix) {
+        int index = s.indexOf(SqlConstant.TABLE);
+        String result = s.substring(index + SqlConstant.TABLE.length());
         String tableName = result.replaceAll("\\(", "").trim();
         if (StringUtils.isNotBlank(ignoreTablePrefix.toLowerCase())) {
             tableName = tableName.substring(ignoreTablePrefix.concat(SqlConstant.UNDERLINE).length());
@@ -162,6 +161,6 @@ public class SqlParser {
         } else {
             sb.append(StringUtils.capitalize(tableName));
         }
-        return sb.toString();
+        return ImmutableMap.of("clazzName", sb.toString(), "tableName", tableName);
     }
 }

@@ -55,7 +55,7 @@ public class CodeGenerateController {
      *
      * @return
      */
-    @GetMapping("/index")
+    @GetMapping
     public String index() {
         return "index";
     }

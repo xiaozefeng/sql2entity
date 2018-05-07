@@ -28,7 +28,7 @@ public class SqlParseTest {
         sql = sql.toLowerCase().replaceAll("`", "");
         String[] split = sql.split("\n");
         String tableName = getTableName(split[0]);
-        System.out.printf("tableName:%s \n", tableName);
+        System.out.printf("clazzName:%s \n", tableName);
         List<Column> columns = new ArrayList<>();
         for (int i = 1; i < split.length; i++) {
             if (split.length - 1 == i || split.length - 2 == i) {

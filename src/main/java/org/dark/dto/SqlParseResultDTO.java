@@ -1,5 +1,6 @@
 package org.dark.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.dark.domain.Column;
 
@@ -10,7 +11,13 @@ import java.util.List;
  * @date 2018/5/5 下午11:58
  */
 @Data
+@AllArgsConstructor
 public class SqlParseResultDTO {
+    /**
+     * 类名
+     */
+    private String clazzName;
+
     /**
      * 表名
      */
@@ -24,8 +31,4 @@ public class SqlParseResultDTO {
     public SqlParseResultDTO() {
     }
 
-    public SqlParseResultDTO(String tableName, List<Column> columnList) {
-        this.tableName = tableName;
-        this.columnList = columnList;
-    }
 }

@@ -46,9 +46,11 @@ public class CodeGenerator {
         for (SqlParseResultDTO sqlParseResultDTO : sqlParseResultDTOList) {
             Map<String, Object> root = new HashMap<>();
             root.put("packageName", packageName);
-            root.put("className", sqlParseResultDTO.getTableName());
+            root.put("tableName", sqlParseResultDTO.getTableName()
+            );
+            root.put("className", sqlParseResultDTO.getClazzName());
             root.put("columns", sqlParseResultDTO.getColumnList());
-            String fileName = sqlParseResultDTO.getTableName().concat(".java");
+            String fileName = sqlParseResultDTO.getClazzName().concat(".java");
             OutputStream fos = new FileOutputStream(new File(TEMP_DIR, fileName));
             Writer out = new OutputStreamWriter(fos);
             temp.process(root, out);

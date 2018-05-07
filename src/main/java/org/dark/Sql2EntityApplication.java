@@ -11,7 +11,6 @@ import org.springframework.context.annotation.ComponentScan;
  * @date 2018/5/5 下午10:15
  */
 @SpringBootApplication
-@ComponentScan(basePackages = "org.dark")
 public class Sql2EntityApplication {
 
     public static void main(String[] args) {

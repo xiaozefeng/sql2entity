@@ -22,7 +22,6 @@ import java.io.OutputStream;
  * @date 2018/5/6 上午12:20
  */
 @Controller
-@RequestMapping("/code")
 @Slf4j
 public class CodeGenerateController {
 
@@ -32,13 +31,19 @@ public class CodeGenerateController {
     @Autowired
     private SqlParser sqlParser;
 
-
-    @PostMapping("/generate")
+    /**
+     * 代码生成
+     *
+     * @param response
+     * @param sqlRequestDTO
+     */
+    @PostMapping("/codes/generate")
     @ResponseBody
     public void codeGenerate(HttpServletResponse response, SqlRequestDTO sqlRequestDTO) {
+        log.info("请求参数:{}", sqlRequestDTO);
         SqlParseResult parseResult = sqlParser.parse(sqlRequestDTO.getSql(), sqlRequestDTO.getIgnoreTablePrefix());
         try {
-            OutputStream outputStream = codeGenerator.generateCode(sqlRequestDTO.getBasePackage(), parseResult, response);
+            codeGenerator.generateCode(sqlRequestDTO.getBasePackage(), parseResult, response);
         } catch (IOException | TemplateException e) {
             log.error(e.getMessage(), e);
         }
@@ -46,8 +51,13 @@ public class CodeGenerateController {
 
     }
 
+    /**
+     * 首页
+     *
+     * @return
+     */
     @GetMapping("/index")
-    public String index(){
+    public String index() {
         return "index";
     }
 }

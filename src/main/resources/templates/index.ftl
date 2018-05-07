@@ -6,7 +6,7 @@
 
 </head>
 <body>
-<form action="/code/generate" method="post">
+<form action="/codes/generate" method="post">
     <div>
         <label for="basePackage">包:</label>
         <input type="text" name="basePackage" id="basePackage" value="rog.dark.entity">

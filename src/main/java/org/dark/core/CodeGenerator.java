@@ -15,6 +15,7 @@ import java.util.Map;
 
 /**
  * 代码生成器
+ * 采用freemarker
  *
  * @author xiaozefeng
  * @date 2018/5/5 下午11:34
@@ -37,7 +38,7 @@ public class CodeGenerator {
         root.put("className", sqlParseResult.getTableName());
         root.put("columns", sqlParseResult.getColumnList());
         String fileName = "bean.java";
-        response.setHeader("Content-Disposition","attachment; filename="+fileName);
+        response.setHeader("Content-Disposition", "attachment; filename=" + fileName);
         response.setContentType("application/octet-stream; charset=utf-8");
         ServletOutputStream outputStream = response.getOutputStream();
         Writer out = new OutputStreamWriter(outputStream);

@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 解析SQL语句
+ * SQL 建表语句解析器
  *
  * @author xiaozefeng
  * @date 2018/5/5 下午11:53

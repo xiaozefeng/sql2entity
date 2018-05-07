@@ -10,10 +10,18 @@ import java.util.List;
  */
 @Data
 public class SqlParseResult {
-
+    /**
+     * 表名
+     */
     private String tableName;
 
+    /**
+     * 字段列表
+     */
     private List<Column> columnList;
+
+    public SqlParseResult() {
+    }
 
     public SqlParseResult(String tableName, List<Column> columnList) {
         this.tableName = tableName;

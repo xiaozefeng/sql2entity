@@ -29,9 +29,11 @@ public class SqlParser {
      */
     public List<SqlParseResult> parse(String sql, String ignoreTablePrefix) {
         List<SqlParseResult> results = new ArrayList<>();
-        String[] split = sql.split(";\n");
+        sql = sql.toLowerCase();
+        String[] split = sql.split("charset=utf8;");
+        log.info("split.length:{}",split.length);
         Arrays.stream(split).forEach(s -> {
-            results.add(getSqlParseResult(sql, ignoreTablePrefix));
+            results.add(getSqlParseResult(s, ignoreTablePrefix));
         });
         return results;
     }

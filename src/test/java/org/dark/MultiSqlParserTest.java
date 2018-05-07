@@ -12,27 +12,48 @@ import java.util.Arrays;
  */
 public class MultiSqlParserTest {
 
-    private String sql = "CREATE TABLE `TB_COOP_INFO` (\n" +
+    private String sql = "CREATE TABLE `TB_HXB_LOAN_REPAYMENT` (\n" +
             "  `ID` varchar(36) NOT NULL,\n" +
-            "  `CODE` varchar(255) DEFAULT NULL,\n" +
-            "  `NAME` varchar(255) DEFAULT NULL,\n" +
-            "  `PRIKEYPATH` varchar(255) DEFAULT NULL,\n" +
-            "  `PUBKEYPATH` varchar(255) DEFAULT NULL,\n" +
-            "  `URL` varchar(255) DEFAULT NULL,\n" +
-            "  `USER_KEY` varchar(256) NOT NULL COMMENT '第三方平台提供的接口凭证',\n" +
-            "  `DESCRIPTION` varchar(255) NOT NULL DEFAULT '' COMMENT '第三方平台描述信息',\n" +
-            "  PRIMARY KEY (`ID`)\n" +
+            "  `AGENT_ID` varchar(50) DEFAULT NULL,\n" +
+            "  `CAP_REQUEST_NO` varchar(50) DEFAULT NULL,\n" +
+            "  `HXB_LOAN_ID` varchar(50) NOT NULL,\n" +
+            "  `INTEREST` decimal(15,2) DEFAULT NULL,\n" +
+            "  `LOAN_ACCT_CODE` varchar(255) DEFAULT NULL,\n" +
+            "  `ORDER_ID` varchar(50) DEFAULT NULL,\n" +
+            "  `REPAYAMOUNT` decimal(15,2) DEFAULT NULL,\n" +
+            "  `REPAYDATE` datetime DEFAULT NULL,\n" +
+            "  `STATUS` varchar(30) NOT NULL,\n" +
+            "  `AMOUNTINTEREST` decimal(15,2) NOT NULL,\n" +
+            "  `AMOUNTOUTSTANDING` decimal(15,2) NOT NULL,\n" +
+            "  `AMOUNTPRINCIPAL` decimal(15,2) NOT NULL,\n" +
+            "  `DUEDATE` varchar(20) NOT NULL,\n" +
+            "  `VALUEDATE` datetime NOT NULL,\n" +
+            "  `TRIAL_STATUS` varchar(30) DEFAULT NULL,\n" +
+            "  `FAIL_REASON` varchar(30) DEFAULT NULL,\n" +
+            "  `REPAY_STATUS` varchar(30) DEFAULT NULL,\n" +
+            "  `REPAYMENT_DATE` datetime DEFAULT NULL,\n" +
+            "  `LOAN_TIME` datetime DEFAULT NULL,\n" +
+            "  `TAX_CANCEL` tinyint(1) NOT NULL DEFAULT '0',\n" +
+            "  PRIMARY KEY (`ID`),\n" +
+            "  KEY `INDEX_TB_HXB_LOAN_REPAYMENT_HXB_LOAN_ID` (`HXB_LOAN_ID`)\n" +
             ") ENGINE=InnoDB DEFAULT CHARSET=utf8;\n" +
-            "CREATE TABLE `TB_COOP_LOG` (\n" +
+            "CREATE TABLE `TB_HXB_LOAN_ORDER` (\n" +
             "  `ID` varchar(36) NOT NULL,\n" +
-            "  `COOP_CODE` varchar(10) NOT NULL COMMENT '合作平台',\n" +
-            "  `CORPORATION_NAME` varchar(64) NOT NULL COMMENT '企业名',\n" +
-            "  `ORG_CODE` varchar(32) NOT NULL COMMENT '企业code',\n" +
-            "  `USER_ID` varchar(32) NOT NULL COMMENT '用户id',\n" +
-            "  `OPERATION_TYPE` varchar(12) NOT NULL COMMENT '操作类型',\n" +
-            "  `CREATED_TIME` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '操作时间',\n" +
-            "  `REMARK` varchar(256) DEFAULT '' COMMENT '备注',\n" +
-            "  PRIMARY KEY (`ID`)\n" +
+            "  `LOAN_END_DATE` datetime DEFAULT NULL,\n" +
+            "  `CAP_REQUEST_NO` varchar(255) NOT NULL,\n" +
+            "  `FAIL_REASON` varchar(255) DEFAULT NULL,\n" +
+            "  `HXB_LOAN_ID` varchar(255) NOT NULL,\n" +
+            "  `LOAN_ACCT_CODE` varchar(255) DEFAULT NULL,\n" +
+            "  `LOAN_AGREEMENT_CODE` varchar(255) DEFAULT NULL,\n" +
+            "  `LOAN_AMOUNT` decimal(15,2) DEFAULT NULL,\n" +
+            "  `LOAN_TIME` datetime DEFAULT NULL,\n" +
+            "  `ORDER_DATE` varchar(255) NOT NULL,\n" +
+            "  `ORDER_ID` varchar(255) NOT NULL,\n" +
+            "  `STAT` varchar(255) NOT NULL,\n" +
+            "  `TIMERECORDED` datetime NOT NULL,\n" +
+            "  PRIMARY KEY (`ID`),\n" +
+            "  KEY `INDEX_TB_HXB_LOAN_ORDER_ORDER_ID` (`ORDER_ID`) USING BTREE,\n" +
+            "  KEY `INDEX_TB_HXB_LOAN_ORDER_HXB_LOAN_ID` (`HXB_LOAN_ID`) USING BTREE\n" +
             ") ENGINE=InnoDB DEFAULT CHARSET=utf8;";
 
     private String sql2 = "CREATE TABLE `RF_AUTOBID_REPAYMETHOD` (\n" +
@@ -44,7 +65,7 @@ public class MultiSqlParserTest {
 
     @Test
     public void testParse(){
-        String[] split = sql2.split(";\n");
+        String[] split = sql.split("CHARSET=utf8;");
         System.out.println(split.length);
         System.out.println(Arrays.toString(split));
     }

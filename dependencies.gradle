@@ -3,11 +3,13 @@ ext {
             springBootVersion: '1.5.4.RELEASE'
     ]
     libs =[
+            springBoot:[
+                    "org.springframework.boot:spring-boot-starter-web:${versions.springBootVersion}",
+                    "org.springframework.boot:spring-boot-starter-freemarker:${versions.springBootVersion}",
+            ],
             common: [
                     'org.projectlombok:lombok:1.16.20',
-                    "org.springframework.boot:spring-boot-starter-web:${versions.springBootVersion}",
                     'com.google.guava:guava:25.0-jre',
-                    "org.springframework.boot:spring-boot-starter-freemarker:${versions.springBootVersion}",
                     "org.apache.commons:commons-lang3:3.5",
             ],
             test:[

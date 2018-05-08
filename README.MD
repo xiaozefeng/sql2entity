@@ -3,10 +3,14 @@
 > 因为公司之前使用JPA，先写实体类再生产数据库建表语句，这样会有一个问题，数据建表语句都是没有注释的，对于新来的同事非常不友好，同时在开发中需要看字段意义的时候也并不方便,并且字段的类型和长度都需要显示的去声明。
 
 ## 本项目基于Spring Boot 和 gradle 构建
-## 在本地启动成功
+## 如何打包
+```bash
+gradle bootRepackage
+```
+## 运行成功访问
 > 访问 [http://localhost:8080/index](http://localhost:8080/index)
 
-## 效果
+## 效果图
 ![](http://7xv4mv.com1.z0.glb.clouddn.com/2018-05-08-1.gif)
 
 ## 待优化

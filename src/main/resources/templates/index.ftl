@@ -9,11 +9,11 @@
 <form action="/codes/generate" method="post">
     <div>
         <label for="basePackage">包:</label>
-        <input type="text" name="basePackage" id="basePackage" value="rog.dark.entity">
+        <input type="text" name="basePackage" id="basePackage" value="org.dark.entity">
     </div>
     <div>
         <label for="ignoreTablePrefix">表前缀:</label>
-        <input type="text" name="ignoreTablePrefix" id="ignoreTablePrefix" value="tb">
+        <input type="text" name="ignoreTablePrefix" id="ignoreTablePrefix" value="TB">
     </div>
     <div>
         <label for="sql">SQL</label>

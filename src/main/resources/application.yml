@@ -7,3 +7,5 @@ spring:
     expose-session-attributes: true
     request-context-attribute: request
     suffix: .ftl
+server:
+  port: 80

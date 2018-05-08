@@ -9,18 +9,18 @@
 <div class="container">
     <form action="/codes/generate" method="post">
         <div class="form-group">
-            <label for="basePackage">package</label>
-            <input type="email" class="form-control" name="basePackage" id="basePackage"
-                   placeholder="example: org.dark.entity" value="org.dark.entity">
+            <label for="basePackage">Package</label>
+            <input type="text" class="form-control" name="basePackage" id="basePackage"
+                   placeholder="example: org.dark.entity" value="org.dark.entity" required>
         </div>
         <div class="form-group">
-            <label for="ignoreTablePrefix">Password</label>
-            <input type="password" class="form-control" name="ignoreTablePrefix" id="ignoreTablePrefix"
+            <label for="ignoreTablePrefix">需要忽略的前缀</label>
+            <input type="text" class="form-control" name="ignoreTablePrefix" id="ignoreTablePrefix"
                    placeholder="需要忽略的前缀" value="TB">
         </div>
         <div class="form-group">
             <label for="sql">SQL</label>
-            <textarea name="sql" rows="40" cols="110" class="form-control"></textarea>
+            <textarea name="sql" rows="20" cols="110" class="form-control"></textarea>
         </div>
 
         <div class="checkbox">

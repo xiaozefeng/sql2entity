@@ -11,7 +11,7 @@ gradle bootRepackage
 > 访问 [http://localhost:8080/index](http://localhost:8080/index)
 
 ## 效果图
-![](http://7xv4mv.com1.z0.glb.clouddn.com/2018-05-08-1.gif)
+![](http://7xv4mv.com1.z0.glb.clouddn.com/2018-05-08-2.gif)
 
 ## 待优化
 - ~~目前只支持单个建表语句，生成的文件也是单个的java文件~~

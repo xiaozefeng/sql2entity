@@ -3,25 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <title>SQL转Java Entity</title>
-
+    <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-<form action="/codes/generate" method="post">
-    <div>
-        <label for="basePackage">包:</label>
-        <input type="text" name="basePackage" id="basePackage" value="org.dark.entity">
-    </div>
-    <div>
-        <label for="ignoreTablePrefix">表前缀:</label>
-        <input type="text" name="ignoreTablePrefix" id="ignoreTablePrefix" value="TB">
-    </div>
-    <div>
-        <label for="sql">SQL</label>
-        <textarea name="sql" cols="110" rows="30"></textarea>
-    </div>
-    <div>
-        <input type="submit" value="提交">
-    </div>
-</form>
+<div class="container">
+    <form action="/codes/generate" method="post">
+        <div class="form-group">
+            <label for="basePackage">package</label>
+            <input type="email" class="form-control" name="basePackage" id="basePackage"
+                   placeholder="example: org.dark.entity" value="org.dark.entity">
+        </div>
+        <div class="form-group">
+            <label for="ignoreTablePrefix">Password</label>
+            <input type="password" class="form-control" name="ignoreTablePrefix" id="ignoreTablePrefix"
+                   placeholder="需要忽略的前缀" value="TB">
+        </div>
+        <div class="form-group">
+            <label for="sql">SQL</label>
+            <textarea name="sql" rows="40" cols="110" class="form-control"></textarea>
+        </div>
+
+        <div class="checkbox">
+            <label>
+                <input type="checkbox" checked="checked" readonly> jpa代码风格
+            </label>
+        </div>
+        <button type="submit" class="btn btn-default">提交</button>
+    </form>
+</div>
 </body>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </html>

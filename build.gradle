@@ -1,7 +1,24 @@
+buildscript {
+    ext {
+        springBootVersion = '1.5.4.RELEASE'
+    }
+    repositories {
+        mavenLocal()
+        maven { url = "http://maven.aliyun.com/nexus/content/groups/public" }
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
+}
+
+
 group 'org.dark'
 version '1.0-SNAPSHOT'
 
 apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'org.springframework.boot'
 apply from : "$rootDir/dependencies.gradle"
 
 sourceCompatibility = 1.8
@@ -20,4 +37,10 @@ dependencies {
     compile libs.common
     compile libs.springBoot
     testCompile libs.test
+}
+
+jar {
+    manifest {
+        attributes 'Main-Class': 'org.dark.Sql2EntityApplication'
+    }
 }

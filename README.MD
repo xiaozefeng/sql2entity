@@ -13,6 +13,9 @@ gradle bootRepackage
 ## 效果图
 ![](http://7xv4mv.com1.z0.glb.clouddn.com/2018-05-08-2.gif)
 
+##在线地址
+[Sql2entity](http://www.xiaozefeng.xyz/)
+
 ## 待优化
 - ~~目前只支持单个建表语句，生成的文件也是单个的java文件~~
 - sql解析很多地方是硬编码的，需要更灵活

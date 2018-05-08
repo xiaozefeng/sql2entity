@@ -31,7 +31,7 @@ public class CodeGenerator {
     @Autowired
     private Configuration cfg;
 
-    private final static String TEMP_DIR = "src/main/resources/temp";
+    private final static String TEMP_DIR = "/temp";
 
     public OutputStream generateCode(String packageName,
                                      List<SqlParseResultDTO> sqlParseResultDTOList,

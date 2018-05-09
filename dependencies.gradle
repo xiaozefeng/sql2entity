@@ -14,7 +14,6 @@ ext {
             ],
             test:[
                     "org.springframework.boot:spring-boot-starter-test:${versions.springBootVersion}",
-                    'junit:junit:4.12',
             ]
     ]
 }

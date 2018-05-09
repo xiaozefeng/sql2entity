@@ -8,6 +8,7 @@ import org.dark.utils.ZipUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.Resource;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
@@ -28,12 +29,12 @@ import java.util.zip.ZipOutputStream;
 @Component
 public class CodeGenerator {
 
-    @Autowired
+    @Resource
     private Configuration cfg;
 
     private final static String TEMP_DIR = "/tmp";
 
-    public OutputStream generateCode(String packageName,
+    public void generateCode(String packageName,
                                      List<SqlParseResultDTO> sqlParseResultDTOList,
                                      HttpServletResponse response) throws IOException, TemplateException {
         // 从 resources/templates 下找bean.ftl
@@ -64,7 +65,5 @@ public class CodeGenerator {
         zipOutputStream.close();
         outputStream.flush();
         outputStream.close();
-        return outputStream;
-
     }
 }

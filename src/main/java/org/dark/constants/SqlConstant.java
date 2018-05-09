@@ -15,8 +15,4 @@ public class SqlConstant {
     public final static String UNDERLINE = "_";
 
     public final static String TABLE = "table";
-
-
-
-
 }

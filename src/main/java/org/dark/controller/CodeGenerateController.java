@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
@@ -24,10 +25,10 @@ import java.util.List;
 @Slf4j
 public class CodeGenerateController {
 
-    @Autowired
+    @Resource
     private CodeGenerator codeGenerator;
 
-    @Autowired
+    @Resource
     private SqlParser sqlParser;
 
     /**

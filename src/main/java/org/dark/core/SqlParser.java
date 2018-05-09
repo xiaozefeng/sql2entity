@@ -7,6 +7,7 @@ import org.dark.constants.SqlConstant;
 import org.dark.domain.Column;
 import org.dark.dto.SqlParseResultDTO;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -47,6 +48,7 @@ public class SqlParser {
      * @param ignoreTablePrefix
      * @return
      */
+    @SuppressWarnings("unchecked")
     private SqlParseResultDTO getSqlParseResult(String sql, String ignoreTablePrefix) {
         sql = sql.trim().toLowerCase().replaceAll("`", "").replaceAll("((\r\n)|\n)[\\s\t ]*(\\1)+", "$1");
         String[] split = sql.split("\n");

@@ -8,4 +8,4 @@ spring:
     request-context-attribute: request
     suffix: .ftl
   profiles:
-    active: dev
+    active: prod

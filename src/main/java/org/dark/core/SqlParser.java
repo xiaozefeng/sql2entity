@@ -23,7 +23,9 @@ import java.util.Map;
 @Component
 @Slf4j
 public class SqlParser {
-
+    /**
+     * 多个sql的分隔符
+     */
     private final String SQL_SEPARATOR = "charset=utf8;";
 
     /**
@@ -35,6 +37,7 @@ public class SqlParser {
      */
     public List<SqlParseResultDTO> parse(String sql, String ignoreTablePrefix) {
         List<SqlParseResultDTO> results = new ArrayList<>();
+        // 删除空格
         sql = sql.toLowerCase().replaceAll("((\r\n)|\n)[\\s\t ]*(\\1)+", "$1");
         String[] split = sql.split(SQL_SEPARATOR);
         Arrays.stream(split).filter(StringUtils::isNotBlank).forEach(s-> results.add(getSqlParseResult(s, ignoreTablePrefix)));
@@ -84,11 +87,11 @@ public class SqlParser {
      */
     private String getFieldName(String column) {
         assert column != null && !"".equals(column);
-        if (!column.contains("_")) {
+        if (!column.contains(SqlConstant.UNDERLINE)) {
             return column;
         }
         StringBuilder sb = new StringBuilder();
-        String[] split = column.split("_");
+        String[] split = column.split(SqlConstant.UNDERLINE);
         for (int i = 0; i < split.length; i++) {
             if (i == 0) {
                 sb.append(split[i]);
@@ -106,13 +109,11 @@ public class SqlParser {
      * @return
      */
     private String findComment(String temp) {
-        String comment = "comment";
-
-        int index = temp.indexOf(comment);
+        int index = temp.indexOf(SqlConstant.COMMENT);
         if (index == -1) {
             return "";
         }
-        String substring = temp.substring(index + comment.length());
+        String substring = temp.substring(index + SqlConstant.COMMENT.length());
         return substring.replaceAll("'", "")
                 .replace(",", "")
                 .trim();

@@ -6,7 +6,6 @@ import org.dark.core.CodeGenerator;
 import org.dark.core.SqlParser;
 import org.dark.dto.SqlParseResultDTO;
 import org.dark.dto.SqlRequestDTO;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;

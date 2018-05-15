@@ -35,8 +35,8 @@ public class CodeGenerator {
     private final static String TEMP_DIR = "/tmp";
 
     public void generateCode(String packageName,
-                                     List<SqlParseResultDTO> sqlParseResultDTOList,
-                                     HttpServletResponse response) throws IOException, TemplateException {
+                             List<SqlParseResultDTO> sqlParseResultDTOList,
+                             HttpServletResponse response) throws IOException, TemplateException {
         // 从 resources/templates 下找bean.ftl
         Template temp = cfg.getTemplate("bean.ftl");
         String zipName = "beans.zip";
@@ -59,7 +59,7 @@ public class CodeGenerator {
             fos.close();
             ZipUtil.doZip(new File(TEMP_DIR, fileName), zipOutputStream);
             //清理临时文件
-            Files.delete(Paths.get(TEMP_DIR,fileName));
+            Files.delete(Paths.get(TEMP_DIR, fileName));
         }
 
         zipOutputStream.close();
